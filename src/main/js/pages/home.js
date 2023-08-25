@@ -144,6 +144,7 @@ class Venta extends React.Component {
                 <td>{this.props.venta.total}</td>
                 <td>
                     <Link to={"/ver-venta/" + id}>Ver</Link>
+
                 </td>
             </tr>
         );
@@ -159,7 +160,8 @@ class VentaDetalle extends React.Component {
                 <td>{this.props.ventadetalle.id_producto}</td>
                 <td>{this.props.ventadetalle.cantidad}</td>
                 <td>
-                    <Link to={"/ver-ventadetalle/" + id}>Ver</Link>
+                    <Link to={"/ver-ventadetalle/" + id}>Ver</Link> |
+                    <Link to={"/editar-ventadetalle/" + id}>Editar</Link>
                 </td>
             </tr>
         );

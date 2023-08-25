@@ -5,6 +5,7 @@ import java.util.Objects;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -15,18 +16,20 @@ public class VentaDetalle {
     private int id;
 
     @ManyToOne
-    private Venta id_venta;
+    @JoinColumn(name = "id_venta")
+    private Venta venta;
 
     @ManyToOne
-    private Producto id_producto;
+    @JoinColumn(name = "id_producto")
+    private Producto producto;
 
     private int cantidad;
 
     private VentaDetalle() {}
 
-    public VentaDetalle(Venta id_venta, Producto id_producto, int cantidad) {
-        this.id_venta = id_venta;
-        this.id_producto = id_producto;
+    public VentaDetalle(Venta venta, Producto producto, int cantidad) {
+        this.venta = venta;
+        this.producto = producto;
         this.cantidad = cantidad;
     }
 

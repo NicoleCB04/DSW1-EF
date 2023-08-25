@@ -40844,8 +40844,9 @@ var NuevoProductoPage = __webpack_require__(/*! ./pages/nuevo-producto */ "./src
 var VerVentaPage = __webpack_require__(/*! ./pages/ver-venta */ "./src/main/js/pages/ver-venta.js");
 var NuevaVentaPage = __webpack_require__(/*! ./pages/nueva-venta */ "./src/main/js/pages/nueva-venta.js");
 var VerProductoPage = __webpack_require__(/*! ./pages/ver-producto */ "./src/main/js/pages/ver-producto.js");
-var EditarVentaPage = __webpack_require__(/*! ./pages/editar-venta */ "./src/main/js/pages/editar-venta.js");
 var VerVentaDetallePage = __webpack_require__(/*! ./pages/ver-ventadetalle */ "./src/main/js/pages/ver-ventadetalle.js");
+var EditarProductoPage = __webpack_require__(/*! ./pages/editar-producto */ "./src/main/js/pages/editar-producto.js");
+var EditarVentaDetallePage = __webpack_require__(/*! ./pages/editar-ventadetalle */ "./src/main/js/pages/editar-ventadetalle.js");
 var router = createBrowserRouter([{
   path: '/',
   element: /*#__PURE__*/React.createElement(HomePage, null)
@@ -40862,11 +40863,14 @@ var router = createBrowserRouter([{
   path: '/nuevo-producto',
   element: /*#__PURE__*/React.createElement(NuevoProductoPage, null)
 }, {
-  path: '/editar-venta/:id',
-  element: /*#__PURE__*/React.createElement(EditarVentaPage, null)
+  path: '/editar-producto/:id',
+  element: /*#__PURE__*/React.createElement(EditarProductoPage, null)
 }, {
   path: '/ver-ventadetalle/:id',
   element: /*#__PURE__*/React.createElement(VerVentaDetallePage, null)
+}, {
+  path: '/editar-ventadetalle/:id',
+  element: /*#__PURE__*/React.createElement(EditarVentaDetallePage, null)
 }]);
 ReactDOM.render( /*#__PURE__*/React.createElement(React.StrictMode, null, /*#__PURE__*/React.createElement(RouterProvider, {
   router: router
@@ -40903,19 +40907,13 @@ module.exports = rest.wrap(mime, {
 
 /***/ }),
 
-/***/ "./src/main/js/pages/editar-venta.js":
-/*!*******************************************!*\
-  !*** ./src/main/js/pages/editar-venta.js ***!
-  \*******************************************/
+/***/ "./src/main/js/pages/editar-producto.js":
+/*!**********************************************!*\
+  !*** ./src/main/js/pages/editar-producto.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -40931,10 +40929,14 @@ var _require2 = __webpack_require__(/*! react-router-dom */ "./node_modules/reac
   useParams = _require2.useParams;
 var client = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
 var EditarProductoPage = function EditarProductoPage() {
-  var _useState = useState({}),
+  var _useState = useState(''),
     _useState2 = _slicedToArray(_useState, 2),
-    producto = _useState2[0],
-    setProducto = _useState2[1];
+    nombre = _useState2[0],
+    setNombre = _useState2[1];
+  var _useState3 = useState(''),
+    _useState4 = _slicedToArray(_useState3, 2),
+    precio = _useState4[0],
+    setPrecio = _useState4[1];
   var _useParams = useParams(),
     id = _useParams.id;
   useEffect(function () {
@@ -40942,51 +40944,127 @@ var EditarProductoPage = function EditarProductoPage() {
       method: 'GET',
       path: '/api/productos/' + id
     }).done(function (response) {
-      return setProducto(response.entity);
+      var producto = response.entity;
+      setNombre(producto.nombre);
+      setPrecio(producto.precio);
     });
-  }, []);
+  }, [id]);
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault();
     client({
       method: 'PATCH',
       path: '/api/productos/' + id,
-      entity: producto,
+      entity: {
+        nombre: nombre,
+        precio: parseFloat(precio)
+      },
       headers: {
         'Content-Type': 'application/json'
       }
     }).done(function () {
-      return window.location = '/';
+      window.location = '/';
     });
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Editar Producto"), /*#__PURE__*/React.createElement("form", {
     onSubmit: handleSubmit
-  }, /*#__PURE__*/React.createElement("label", null, "Nombre"), /*#__PURE__*/React.createElement("input", {
+  }, /*#__PURE__*/React.createElement("label", null, "Nombre"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     type: "text",
     id: "nombre",
     name: "nombre",
-    value: producto.nombre,
+    value: nombre,
     onChange: function onChange(e) {
-      return setProducto(_objectSpread(_objectSpread({}, producto), {}, {
-        nombre: e.target.value
-      }));
+      return setNombre(e.target.value);
     }
-  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Precio"), /*#__PURE__*/React.createElement("input", {
+  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Precio"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     type: "number",
     id: "precio",
     name: "precio",
-    step: "0.01",
-    value: producto.precio,
+    value: precio,
     onChange: function onChange(e) {
-      return setProducto(_objectSpread(_objectSpread({}, producto), {}, {
-        precio: parseFloat(e.target.value)
-      }));
+      return setPrecio(parseFloat(e.target.value));
     }
   }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     type: "submit",
     value: "Editar Producto"
-  })));
+  })), /*#__PURE__*/React.createElement(Link, {
+    to: "/"
+  }, "Volver"));
 };
 module.exports = EditarProductoPage;
+
+/***/ }),
+
+/***/ "./src/main/js/pages/editar-ventadetalle.js":
+/*!**************************************************!*\
+  !*** ./src/main/js/pages/editar-ventadetalle.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var _require = __webpack_require__(/*! react */ "./node_modules/react/index.js"),
+  useState = _require.useState,
+  useEffect = _require.useEffect;
+var _require2 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js"),
+  Link = _require2.Link,
+  useParams = _require2.useParams;
+var client = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
+var EditarVentaDetallePage = function EditarVentaDetallePage() {
+  var _useState = useState(''),
+    _useState2 = _slicedToArray(_useState, 2),
+    cantidad = _useState2[0],
+    setCantidad = _useState2[1];
+  var _useParams = useParams(),
+    id = _useParams.id;
+  useEffect(function () {
+    client({
+      method: 'GET',
+      path: '/api/ventadetalles/' + id
+    }).done(function (response) {
+      var detalleVenta = response.entity;
+      setCantidad(detalleVenta.cantidad);
+    });
+  }, [id]);
+  var handleSubmit = function handleSubmit(event) {
+    event.preventDefault();
+    var nuevoDetalleVenta = {
+      cantidad: parseFloat(cantidad)
+    };
+    client({
+      method: 'PATCH',
+      path: '/api/ventadetalles/' + id,
+      entity: nuevoDetalleVenta,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).done(function () {
+      window.location = '/';
+    });
+  };
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Editar Detalle de Venta"), /*#__PURE__*/React.createElement("form", {
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/React.createElement("label", null, "Cantidad"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    id: "cantidad",
+    name: "cantidad",
+    value: cantidad,
+    onChange: function onChange(e) {
+      return setCantidad(parseFloat(e.target.value));
+    }
+  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    type: "submit",
+    value: "Editar Detalle de Venta"
+  })), /*#__PURE__*/React.createElement(Link, {
+    to: "/"
+  }, "Volver"));
+};
+module.exports = EditarVentaDetallePage;
 
 /***/ }),
 
@@ -41226,7 +41304,9 @@ var VentaDetalle = /*#__PURE__*/function (_React$Component7) {
       var id = this.props.ventadetalle._links.self.href.split("/").slice(-1);
       return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.ventadetalle.id_venta), /*#__PURE__*/React.createElement("td", null, this.props.ventadetalle.id_producto), /*#__PURE__*/React.createElement("td", null, this.props.ventadetalle.cantidad), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement(Link, {
         to: "/ver-ventadetalle/" + id
-      }, "Ver")));
+      }, "Ver"), " |", /*#__PURE__*/React.createElement(Link, {
+        to: "/editar-ventadetalle/" + id
+      }, "Editar")));
     }
   }]);
   return VentaDetalle;
@@ -41280,9 +41360,9 @@ var NuevaVentaPage = function NuevaVentaPage() {
     type: "number",
     id: "total",
     name: "total",
-    step: "0.01",
+    value: total,
     onChange: function onChange(e) {
-      return setTotal(e.target.value);
+      return setTotal(parseFloat(e.target.value));
     }
   }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     type: "submit",
@@ -41349,12 +41429,12 @@ var NuevoProductoPage = function NuevoProductoPage() {
       return setNombre(e.target.value);
     }
   }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Precio"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
-    type: "text",
+    type: "number",
     id: "precio",
     name: "precio",
-    step: "0.01",
+    value: precio,
     onChange: function onChange(e) {
-      return setPrecio(e.target.value);
+      return setPrecio(parseFloat(e.target.value));
     }
   }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
     type: "submit",
