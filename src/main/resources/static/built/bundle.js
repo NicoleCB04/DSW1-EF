@@ -41229,7 +41229,7 @@ var VentaList = /*#__PURE__*/function (_React$Component3) {
       });
       return /*#__PURE__*/React.createElement("table", {
         border: "1"
-      }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null), /*#__PURE__*/React.createElement("th", null, "Total"), /*#__PURE__*/React.createElement("th", null, "Acciones")), ventas));
+      }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Total"), /*#__PURE__*/React.createElement("th", null, "Acciones")), ventas));
     }
   }]);
   return VentaList;
@@ -41252,7 +41252,7 @@ var VentaDetalleList = /*#__PURE__*/function (_React$Component4) {
       });
       return /*#__PURE__*/React.createElement("table", {
         border: "1"
-      }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Venta"), /*#__PURE__*/React.createElement("th", null, "Producto"), /*#__PURE__*/React.createElement("th", null, "Cantidad"), /*#__PURE__*/React.createElement("th", null, "Acciones")), ventadetalles));
+      }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Producto"), /*#__PURE__*/React.createElement("th", null, "Cantidad"), /*#__PURE__*/React.createElement("th", null, "Acciones")), ventadetalles));
     }
   }]);
   return VentaDetalleList;
@@ -41306,7 +41306,7 @@ var VentaDetalle = /*#__PURE__*/function (_React$Component7) {
     key: "render",
     value: function render() {
       var id = this.props.ventadetalle._links.self.href.split("/").slice(-1);
-      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.ventadetalle.id_venta), /*#__PURE__*/React.createElement("td", null, this.props.ventadetalle.id_producto), /*#__PURE__*/React.createElement("td", null, this.props.ventadetalle.cantidad), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement(Link, {
+      return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, this.props.ventadetalle.id_producto), /*#__PURE__*/React.createElement("td", null, this.props.ventadetalle.cantidad), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement(Link, {
         to: "/ver-ventadetalle/" + id
       }, "Ver"), " |", /*#__PURE__*/React.createElement(Link, {
         to: "/editar-ventadetalle/" + id
@@ -41453,20 +41453,7 @@ var NuevoVentaDetallePage = function NuevoVentaDetallePage() {
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Nuevo Detalle de Venta"), /*#__PURE__*/React.createElement("form", {
     onSubmit: handleSubmit
-  }, /*#__PURE__*/React.createElement("label", null, "Venta"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("select", {
-    id: "ventaId",
-    name: "ventaId",
-    onChange: function onChange(e) {
-      return setVentaId(e.target.value);
-    }
-  }, /*#__PURE__*/React.createElement("option", {
-    value: ""
-  }, "Seleccione una venta"), ventas.map(function (venta) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: venta._links.self.href,
-      value: venta.id
-    }, venta.id);
-  })), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Producto"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("select", {
+  }, /*#__PURE__*/React.createElement("label", null, "Producto"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("select", {
     id: "productoId",
     name: "productoId",
     onChange: function onChange(e) {

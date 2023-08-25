@@ -43,13 +43,7 @@ const NuevoVentaDetallePage = () => {
         <>
             <h1>Nuevo Detalle de Venta</h1>
             <form onSubmit={handleSubmit}>
-                <label>Venta</label> <br />
-                <select id="ventaId" name="ventaId" onChange={e => setVentaId(e.target.value)}>
-                    <option value="">Seleccione una venta</option>
-                    {ventas.map(venta => (
-                        <option key={venta._links.self.href} value={venta.id}>{venta.id}</option>
-                    ))}
-                </select> <br />
+                
                 <label>Producto</label> <br />
                 <select id="productoId" name="productoId" onChange={e => setProductoId(e.target.value)}>
                     <option value="">Seleccione un producto</option>

@@ -26,11 +26,16 @@ public class DatabaseLoader implements CommandLineRunner {
 	public void run(String... strings) throws Exception {
 
 		Producto producto1 = new Producto("Teclado gamer k50", 325);
-        Producto producto2 = new Producto("Audifonos G365", 550);
+        Producto producto2 = new Producto("Audifonos G365", 450);
 		Producto producto3 = new Producto("Mouse LG 25", 125);
+		Producto producto4 = new Producto("Monitor 40P", 750);
+		Producto producto5 = new Producto("Mouse Mb 22", 200);
 		repositoryP.save(producto1);
         repositoryP.save(producto2);
 		repositoryP.save(producto3);
+		repositoryP.save(producto4);
+		repositoryP.save(producto5);
+
 
 		Venta venta1 = new Venta(125);
         Venta venta2 = new Venta(550);
