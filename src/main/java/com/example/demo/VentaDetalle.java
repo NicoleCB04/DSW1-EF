@@ -60,19 +60,19 @@ public class VentaDetalle {
         return id;
     }
 
-    public Venta getventa() {
+    public Venta getVenta() {
         return venta;
     }
 
-    public void setventa(Venta venta) {
+    public void setVenta(Venta venta) {
         this.venta = venta;
     }
 
-    public Producto getproducto() {
+    public Producto getProducto() {
         return producto;
     }
 
-    public void setproducto(Producto producto) {
+    public void setProducto(Producto producto) {
         this.producto = producto;
     }
 

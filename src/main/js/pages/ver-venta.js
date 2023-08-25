@@ -22,6 +22,7 @@ const VerVentaPage = () => {
             <h1>Ver Venta</h1>
 
             <table>
+                <tr>
                     <th>Total</th>
                     <td>{venta.total}</td>
                 </tr>
