@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import client from '../client';
+const React = require('react');
+const { useState, useEffect } = require('react');
+const { Link, useParams } = require('react-router-dom');
+const client = require('../client');
 
 const VerVentaDetallePage = () => {
     const { id } = useParams();
     const [detalleVenta, setDetalleVenta] = useState({});
-    const [productos, setProductos] = useState([]);
+    const [venta, setVenta] = useState({});
 
     useEffect(() => {
         client({
@@ -15,46 +16,48 @@ const VerVentaDetallePage = () => {
 
         client({
             method: 'GET',
-            path: '/api/productos'
-        }).done(response => setProductos(response.entity._embedded.productos));
+            path: '/api/ventas'
+        }).done(response => {
+            const ventaEncontrada = response.entity._embedded.ventas.find(venta => venta._links.ventadetalles.href.includes(id));
+            setVenta(ventaEncontrada);
+        });
     }, [id]);
 
     return (
-        <div>
+        <>
             <h1>Detalle de Venta</h1>
-            <hr />
-            <table>
+            <hr/>
+            <table border="1">
                 <tbody>
                     <tr>
                         <th>Producto</th>
-                        <td>
-                            <select
-                                id="producto"
-                                name="producto"
-                                value={detalleVenta.producto ? detalleVenta.producto.id : ''}
-                                disabled
-                            >
-                                {productos.map(producto => (
-                                    <option key={producto.id} value={producto.id}>{producto.nombre}</option>
-                                ))}
-                            </select>
-                        </td>
+                        <td>{detalleVenta.producto && detalleVenta.producto.nombre}</td>
                     </tr>
                     <tr>
                         <th>Cantidad</th>
                         <td>{detalleVenta.cantidad}</td>
                     </tr>
+                </tbody>
+            </table>
+            <hr/>
+            <h2>Venta</h2>
+            <hr/>
+            <table border="1">
+                <thead>
                     <tr>
                         <th>Total</th>
-                        <td>{detalleVenta.total}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{venta.total}</td>
                     </tr>
                 </tbody>
             </table>
-            <hr />
-            <Link to={`/editar-ventadetalle/${id}`}>Editar Detalle</Link> |
+            <hr/>
             <Link to="/">Volver</Link>
-        </div>
+        </>
     );
 };
 
-export default VerVentaDetallePage;
+module.exports = VerVentaDetallePage;

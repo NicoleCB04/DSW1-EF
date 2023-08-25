@@ -40845,7 +40845,7 @@ var VerVentaPage = __webpack_require__(/*! ./pages/ver-venta */ "./src/main/js/p
 var NuevaVentaPage = __webpack_require__(/*! ./pages/nueva-venta */ "./src/main/js/pages/nueva-venta.js");
 var VerProductoPage = __webpack_require__(/*! ./pages/ver-producto */ "./src/main/js/pages/ver-producto.js");
 var VerVentaDetallePage = __webpack_require__(/*! ./pages/ver-ventadetalle */ "./src/main/js/pages/ver-ventadetalle.js");
-var NuevoVentaDetallePage = __webpack_require__(/*! ./pages/nueva-ventadetalle */ "./src/main/js/pages/nueva-ventadetalle.js");
+var NuevoVentaDetallePage = __webpack_require__(/*! ./pages/nuevo-ventadetalle */ "./src/main/js/pages/nuevo-ventadetalle.js");
 var EditarProductoPage = __webpack_require__(/*! ./pages/editar-producto */ "./src/main/js/pages/editar-producto.js");
 var EditarVentaDetallePage = __webpack_require__(/*! ./pages/editar-ventadetalle */ "./src/main/js/pages/editar-ventadetalle.js");
 var router = createBrowserRouter([{
@@ -40873,7 +40873,7 @@ var router = createBrowserRouter([{
   path: '/editar-ventadetalle/:id',
   element: /*#__PURE__*/React.createElement(EditarVentaDetallePage, null)
 }, {
-  path: '/nueva-ventadetalle',
+  path: '/nuevo-ventadetalle',
   element: /*#__PURE__*/React.createElement(NuevoVentaDetallePage, null)
 }]);
 ReactDOM.render( /*#__PURE__*/React.createElement(React.StrictMode, null, /*#__PURE__*/React.createElement(RouterProvider, {
@@ -41003,7 +41003,7 @@ module.exports = EditarProductoPage;
   !*** ./src/main/js/pages/editar-ventadetalle.js ***!
   \**************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -41011,6 +41011,14 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var _require = __webpack_require__(/*! react */ "./node_modules/react/index.js"),
+  useState = _require.useState,
+  useEffect = _require.useEffect;
+var _require2 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js"),
+  Link = _require2.Link,
+  useParams = _require2.useParams;
+var client = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
 var EditarVentaDetallePage = function EditarVentaDetallePage() {
   var _useState = useState([]),
     _useState2 = _slicedToArray(_useState, 2),
@@ -41035,7 +41043,7 @@ var EditarVentaDetallePage = function EditarVentaDetallePage() {
     });
     client({
       method: 'GET',
-      path: '/api/ventadetalles/' + id
+      path: "/api/ventadetalles/".concat(id)
     }).done(function (response) {
       var detalleVenta = response.entity;
       setProductoId(detalleVenta.producto.id);
@@ -41050,7 +41058,7 @@ var EditarVentaDetallePage = function EditarVentaDetallePage() {
     };
     client({
       method: 'PATCH',
-      path: '/api/ventadetalles/' + id,
+      path: "/api/ventadetalles/".concat(id),
       entity: detalleEditado,
       headers: {
         'Content-Type': 'application/json'
@@ -41085,8 +41093,8 @@ var EditarVentaDetallePage = function EditarVentaDetallePage() {
     type: "submit",
     value: "Editar Detalle de Venta"
   })), /*#__PURE__*/React.createElement(Link, {
-    to: "/"
-  }, "Volver"));
+    to: "/ver-ventadetalle/".concat(id)
+  }, "Cancelar"));
 };
 module.exports = EditarVentaDetallePage;
 
@@ -41399,92 +41407,6 @@ module.exports = NuevaVentaPage;
 
 /***/ }),
 
-/***/ "./src/main/js/pages/nueva-ventadetalle.js":
-/*!*************************************************!*\
-  !*** ./src/main/js/pages/nueva-ventadetalle.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-var NuevoVentaDetallePage = function NuevoVentaDetallePage() {
-  var _useState = useState([]),
-    _useState2 = _slicedToArray(_useState, 2),
-    productos = _useState2[0],
-    setProductos = _useState2[1];
-  var _useState3 = useState(''),
-    _useState4 = _slicedToArray(_useState3, 2),
-    productoId = _useState4[0],
-    setProductoId = _useState4[1];
-  var _useState5 = useState(''),
-    _useState6 = _slicedToArray(_useState5, 2),
-    cantidad = _useState6[0],
-    setCantidad = _useState6[1];
-  useEffect(function () {
-    client({
-      method: 'GET',
-      path: '/api/productos'
-    }).done(function (response) {
-      return setProductos(response.entity._embedded.productos);
-    });
-  }, []);
-  var handleSubmit = function handleSubmit(event) {
-    event.preventDefault();
-    var nuevoDetalleVenta = {
-      producto: "/api/productos/".concat(productoId),
-      cantidad: parseInt(cantidad)
-    };
-    client({
-      method: 'POST',
-      path: '/api/ventadetalles',
-      entity: nuevoDetalleVenta,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).done(function () {
-      window.location = '/';
-    });
-  };
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Nuevo Detalle de Venta"), /*#__PURE__*/React.createElement("form", {
-    onSubmit: handleSubmit
-  }, /*#__PURE__*/React.createElement("label", null, "Producto"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("select", {
-    id: "producto",
-    name: "producto",
-    value: productoId,
-    onChange: function onChange(e) {
-      return setProductoId(e.target.value);
-    }
-  }, /*#__PURE__*/React.createElement("option", {
-    value: ""
-  }, "Seleccione un producto"), productos.map(function (producto) {
-    return /*#__PURE__*/React.createElement("option", {
-      key: producto.id,
-      value: producto.id
-    }, producto.nombre);
-  })), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Cantidad"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
-    type: "number",
-    id: "cantidad",
-    name: "cantidad",
-    value: cantidad,
-    onChange: function onChange(e) {
-      return setCantidad(parseInt(e.target.value));
-    }
-  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
-    type: "submit",
-    value: "Nuevo Detalle de Venta"
-  })), /*#__PURE__*/React.createElement(Link, {
-    to: "/"
-  }, "Volver"));
-};
-module.exports = NuevoVentaDetallePage;
-
-/***/ }),
-
 /***/ "./src/main/js/pages/nuevo-producto.js":
 /*!*********************************************!*\
   !*** ./src/main/js/pages/nuevo-producto.js ***!
@@ -41554,6 +41476,99 @@ var NuevoProductoPage = function NuevoProductoPage() {
   }, "Volver"));
 };
 module.exports = NuevoProductoPage;
+
+/***/ }),
+
+/***/ "./src/main/js/pages/nuevo-ventadetalle.js":
+/*!*************************************************!*\
+  !*** ./src/main/js/pages/nuevo-ventadetalle.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var _require = __webpack_require__(/*! react */ "./node_modules/react/index.js"),
+  useState = _require.useState,
+  useEffect = _require.useEffect;
+var _require2 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js"),
+  Link = _require2.Link;
+var client = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
+var NuevoVentaDetallePage = function NuevoVentaDetallePage() {
+  var _useState = useState([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    productos = _useState2[0],
+    setProductos = _useState2[1];
+  var _useState3 = useState(''),
+    _useState4 = _slicedToArray(_useState3, 2),
+    productoId = _useState4[0],
+    setProductoId = _useState4[1];
+  var _useState5 = useState(''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    cantidad = _useState6[0],
+    setCantidad = _useState6[1];
+  useEffect(function () {
+    client({
+      method: 'GET',
+      path: '/api/productos'
+    }).done(function (response) {
+      return setProductos(response.entity._embedded.productos);
+    });
+  }, []);
+  var handleSubmit = function handleSubmit(event) {
+    event.preventDefault();
+    var detalleNuevo = {
+      producto: "/api/productos/".concat(productoId),
+      cantidad: parseInt(cantidad)
+    };
+    client({
+      method: 'POST',
+      path: '/api/ventadetalles',
+      entity: detalleNuevo,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).done(function () {
+      window.location = '/';
+    });
+  };
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Nuevo Detalle de Venta"), /*#__PURE__*/React.createElement("form", {
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/React.createElement("label", null, "Producto"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("select", {
+    id: "producto",
+    name: "producto",
+    value: productoId,
+    onChange: function onChange(e) {
+      return setProductoId(e.target.value);
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: ""
+  }, "Seleccione un producto"), productos.map(function (producto) {
+    return /*#__PURE__*/React.createElement("option", {
+      key: producto.id,
+      value: producto.id
+    }, producto.nombre);
+  })), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", null, "Cantidad"), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    id: "cantidad",
+    name: "cantidad",
+    value: cantidad,
+    onChange: function onChange(e) {
+      return setCantidad(parseInt(e.target.value));
+    }
+  }), " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    type: "submit",
+    value: "Agregar Detalle de Venta"
+  })), /*#__PURE__*/React.createElement(Link, {
+    to: "/"
+  }, "Volver"));
+};
+module.exports = NuevoVentaDetallePage;
 
 /***/ }),
 
@@ -41649,67 +41664,60 @@ module.exports = VerVentaPage;
 /*!***********************************************!*\
   !*** ./src/main/js/pages/ver-ventadetalle.js ***!
   \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
-/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
-/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_client__WEBPACK_IMPORTED_MODULE_2__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var _require = __webpack_require__(/*! react */ "./node_modules/react/index.js"),
+  useState = _require.useState,
+  useEffect = _require.useEffect;
+var _require2 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js"),
+  Link = _require2.Link,
+  useParams = _require2.useParams;
+var client = __webpack_require__(/*! ../client */ "./src/main/js/client.js");
 var VerVentaDetallePage = function VerVentaDetallePage() {
-  var _useParams = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useParams"])(),
+  var _useParams = useParams(),
     id = _useParams.id;
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
+  var _useState = useState({}),
     _useState2 = _slicedToArray(_useState, 2),
     detalleVenta = _useState2[0],
     setDetalleVenta = _useState2[1];
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState3 = useState({}),
     _useState4 = _slicedToArray(_useState3, 2),
-    productos = _useState4[0],
-    setProductos = _useState4[1];
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    _client__WEBPACK_IMPORTED_MODULE_2___default()({
+    venta = _useState4[0],
+    setVenta = _useState4[1];
+  useEffect(function () {
+    client({
       method: 'GET',
       path: "/api/ventadetalles/".concat(id)
     }).done(function (response) {
       return setDetalleVenta(response.entity);
     });
-    _client__WEBPACK_IMPORTED_MODULE_2___default()({
+    client({
       method: 'GET',
-      path: '/api/productos'
+      path: '/api/ventas'
     }).done(function (response) {
-      return setProductos(response.entity._embedded.productos);
+      var ventaEncontrada = response.entity._embedded.ventas.find(function (venta) {
+        return venta._links.ventadetalles.href.includes(id);
+      });
+      setVenta(ventaEncontrada);
     });
   }, [id]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Detalle de Venta"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Producto"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-    id: "producto",
-    name: "producto",
-    value: detalleVenta.producto ? detalleVenta.producto.id : '',
-    disabled: true
-  }, productos.map(function (producto) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-      key: producto.id,
-      value: producto.id
-    }, producto.nombre);
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Cantidad"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, detalleVenta.cantidad)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Total"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, detalleVenta.total)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/editar-ventadetalle/".concat(id)
-  }, "Editar Detalle"), " |", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Detalle de Venta"), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("table", {
+    border: "1"
+  }, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Producto"), /*#__PURE__*/React.createElement("td", null, detalleVenta.producto && detalleVenta.producto.nombre)), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Cantidad"), /*#__PURE__*/React.createElement("td", null, detalleVenta.cantidad)))), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("h2", null, "Venta"), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement("table", {
+    border: "1"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Total"))), /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, venta.total)))), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(Link, {
     to: "/"
   }, "Volver"));
 };
-/* harmony default export */ __webpack_exports__["default"] = (VerVentaDetallePage);
+module.exports = VerVentaDetallePage;
 
 /***/ }),
 

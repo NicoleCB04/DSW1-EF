@@ -17,7 +17,7 @@ const NuevoVentaDetallePage = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const nuevoDetalleVenta = {
+        const detalleNuevo = {
             producto: `/api/productos/${productoId}`,
             cantidad: parseInt(cantidad)
         };
@@ -25,7 +25,7 @@ const NuevoVentaDetallePage = () => {
         client({
             method: 'POST',
             path: '/api/ventadetalles',
-            entity: nuevoDetalleVenta,
+            entity: detalleNuevo,
             headers: { 'Content-Type': 'application/json' }
         }).done(() => {
             window.location = '/';
@@ -45,7 +45,7 @@ const NuevoVentaDetallePage = () => {
                 </select> <br />
                 <label>Cantidad</label> <br />
                 <input type="number" id="cantidad" name="cantidad" value={cantidad} onChange={(e) => setCantidad(parseInt(e.target.value))} /> <br />
-                <input type="submit" value="Nuevo Detalle de Venta" />
+                <input type="submit" value="Agregar Detalle de Venta" />
             </form>
             <Link to="/">Volver</Link>
         </>

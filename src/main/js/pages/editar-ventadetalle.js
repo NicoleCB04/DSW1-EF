@@ -3,7 +3,6 @@ const { useState, useEffect } = require('react');
 const { Link, useParams } = require('react-router-dom');
 const client = require('../client');
 
-
 const EditarVentaDetallePage = () => {
     const [productos, setProductos] = useState([]);
     const [productoId, setProductoId] = useState('');
@@ -18,7 +17,7 @@ const EditarVentaDetallePage = () => {
 
         client({
             method: 'GET',
-            path: '/api/ventadetalles/' + id
+            path: `/api/ventadetalles/${id}`
         }).done(response => {
             const detalleVenta = response.entity;
             setProductoId(detalleVenta.producto.id);
@@ -35,7 +34,7 @@ const EditarVentaDetallePage = () => {
 
         client({
             method: 'PATCH',
-            path: '/api/ventadetalles/' + id,
+            path: `/api/ventadetalles/${id}`,
             entity: detalleEditado,
             headers: { 'Content-Type': 'application/json' }
         }).done(() => {
@@ -57,7 +56,7 @@ const EditarVentaDetallePage = () => {
                 <input type="number" id="cantidad" name="cantidad" value={cantidad} onChange={(e) => setCantidad(parseInt(e.target.value))} /> <br />
                 <input type="submit" value="Editar Detalle de Venta" />
             </form>
-            <Link to="/">Volver</Link>
+            <Link to={`/ver-ventadetalle/${id}`}>Cancelar</Link>
         </>
     );
 };
