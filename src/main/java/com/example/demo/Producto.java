@@ -27,7 +27,7 @@ public class Producto {
 		Producto producto = (Producto) o;
 		return Objects.equals(id, producto.id) &&
 			Objects.equals(nombre, producto.nombre) &&
-			Float.compare(producto.precio, precio) == 0;
+			Objects.equals(producto.precio, precio);
 	}
 
 	@Override

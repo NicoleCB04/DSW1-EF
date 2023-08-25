@@ -26,8 +26,9 @@ public class Venta {
 		if (o == null || getClass() != o.getClass()) return false;
 		Venta venta = (Venta) o;
 		return id== venta.id &&
-			Float.compare(venta.total, total)==0;
+			Objects.equals(venta.total, total);
 	}
+
 
 	@Override
 	public int hashCode() {
