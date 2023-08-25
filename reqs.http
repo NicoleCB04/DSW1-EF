@@ -20,4 +20,3 @@ GET {{server}}/api/bandas/1
 ###
 GET {{server}}/api/bandas/1/formacion
 ###
-GET {{server}}/api/integrantes

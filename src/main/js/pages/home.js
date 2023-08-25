@@ -1,166 +1,169 @@
 const React = require('react');
+const { Link } = require('react-router-dom');
 const client = require('../client');
-const {Link} = require('react-router-dom');
 
 class HomePage extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = { instrumentos: [], musicos: [], bandas: [] };
-	}
-	componentDidMount() {
+    constructor(props) {
+        super(props);
+        this.state = { productos: [], ventas: [], ventadetalles: [] };
+    }
 
-		client({ method: 'GET', path: '/api/instrumentos' }).done(response => {
-			this.setState({ instrumentos: response.entity._embedded.instrumentos });
-		});
+    componentDidMount() {
+        client({ method: 'GET', path: '/api/productos' }).done(response => {
+            this.setState({ productos: response.entity._embedded.productos });
+        });
 
-		client({ method: 'GET', path: '/api/musicos' }).done(response => {
-			this.setState({ musicos: response.entity._embedded.musicos });
-		});
+        client({ method: 'GET', path: '/api/ventas' }).done(response => {
+            this.setState({ ventas: response.entity._embedded.ventas });
+        });
 
-		client({ method: 'GET', path: '/api/bandas' }).done(response => {
-			this.setState({ bandas: response.entity._embedded.bandas });
-		});
+        client({ method: 'GET', path: '/api/ventadetalles' }).done(response => {
+            this.setState({ ventadetalles: response.entity._embedded.ventadetalles });
+        });
+    }
 
-	}
-	render() {
-		return (
-			<>
-				<h1>Semana 13 App</h1>
+    render() {
+        return (
+            <>
+                <h1>Semana 13 App</h1>
 
-				<div style={  {"width": "100%", "display": "flex"}   }>
-					<div style={{"width": "calc(100% / 3)"}}>
-						<Titulo entidad="Intrumentos" emoji="🎸" />
-						<InstrumentoList instrumentos={this.state.instrumentos} />
-						<Link to="/nuevo-instrumento">Nuevo Instrumento</Link>
-					</div>
-					<div style={{"width": "calc(100% / 3)"}}>
-						<Titulo entidad="Musicos" emoji="🎶" />
-						<MusicoList musicos={this.state.musicos} />
-						<Link to="/nuevo-musico">Nuevo Músico</Link>
-					</div>
-					<div style={{"width": "calc(100% / 3)"}}>
-						<Titulo entidad="Bandas" emoji="👩🏼‍🎤" />
-						<BandaList bandas={this.state.bandas} />
-						<Link to="/nueva-banda">Nueva Banda</Link>
-					</div>
-				</div>
-
-
-			</>
-		)
-	}
+                <div style={{ "width": "100%", "display": "flex" }}>
+                    <div style={{ "width": "calc(100% / 3)" }}>
+                        <Titulo entidad="Productos" emoji="🛒" />
+                        <ProductoList productos={this.state.productos} />
+                        <Link to="/nuevo-producto">Nuevo Producto</Link>
+                    </div>
+                    <div style={{ "width": "calc(100% / 3)" }}>
+                        <Titulo entidad="Ventas" emoji="💰" />
+                        <VentaList ventas={this.state.ventas} />
+                        <Link to="/nueva-venta">Nueva Venta</Link>
+                    </div>
+                    <div style={{ "width": "calc(100% / 3)" }}>
+                        <Titulo entidad="Detalles de Venta" emoji="📝" />
+                        <VentaDetalleList ventadetalles={this.state.ventadetalles} />
+                        <Link to="/nuevo-ventadetalle">Nuevo Detalle de Venta</Link>
+                    </div>
+                </div>
+            </>
+        );
+    }
 }
 
 const Titulo = (props) => {
-	return (
-		<>
-			<hr />
-			<h2>{props.emoji} - {props.entidad}</h2>
-			<hr />
-			Lista completa de {props.entidad.toLowerCase()}
-		</>
-	)
+    return (
+        <>
+            <hr />
+            <h2>{props.emoji} - {props.entidad}</h2>
+            <hr />
+            Lista completa de {props.entidad.toLowerCase()}
+        </>
+    );
+};
+
+class ProductoList extends React.Component {
+    render() {
+        const productos = this.props.productos.map(producto =>
+            <Producto key={producto._links.self.href} producto={producto} />
+        );
+        return (
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                    {productos}
+                </tbody>
+            </table>
+        );
+    }
 }
 
-
-class InstrumentoList extends React.Component {
-	render() {
-		const instrumentos = this.props.instrumentos.map(instrumento =>
-			<Instrumento key={instrumento._links.self.href} instrumento={instrumento} />
-		);
-		return (
-			<table border="1">
-				<tbody>
-					<tr>
-						<th>Nombre</th>
-						<th>Categoría</th>
-						<th>Acciones</th>
-					</tr>
-					{instrumentos}
-				</tbody>
-			</table>
-		)
-	}
-}
-class MusicoList extends React.Component {
-	render() {
-		const musicos = this.props.musicos.map(musico =>
-			<Musico key={musico._links.self.href} musico={musico} />
-		);
-		return (
-			<table border="1">
-				<tbody>
-					<tr>
-						<th>Nombre</th>
-						<th>Acciones</th>
-					</tr>
-					{musicos}
-				</tbody>
-			</table>
-		)
-	}
-}
-class BandaList extends React.Component {
-	render() {
-		const bandas = this.props.bandas.map(banda =>
-			<Banda key={banda._links.self.href} banda={banda} />
-		);
-		return (
-			<table border="1">
-				<tbody>
-					<tr>
-						<th>Nombre</th>
-						<th>Acciones</th>
-					</tr>
-					{bandas}
-				</tbody>
-			</table>
-		)
-	}
+class VentaList extends React.Component {
+    render() {
+        const ventas = this.props.ventas.map(venta =>
+            <Venta key={venta._links.self.href} venta={venta} />
+        );
+        return (
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                    {ventas}
+                </tbody>
+            </table>
+        );
+    }
 }
 
-class Instrumento extends React.Component {
-	render() {
-		const id = this.props.instrumento._links.self.href.split("/").slice(-1)
-		return (
-			<tr>
-				<td>{this.props.instrumento.nombre}</td>
-				<td>{this.props.instrumento.categoria}</td>
-				<td>
-					<Link to={"/ver-instrumento/" + id}>Ver</Link> | 
-					<Link to={"/editar-instrumento/" + id}>Editar</Link>
-				</td>
-			</tr>
-		)
-	}
+class VentaDetalleList extends React.Component {
+    render() {
+        const ventadetalles = this.props.ventadetalles.map(ventadetalle =>
+            <VentaDetalle key={ventadetalle._links.self.href} ventadetalle={ventadetalle} />
+        );
+        return (
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <th>Venta</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                    {ventadetalles}
+                </tbody>
+            </table>
+        );
+    }
 }
-class Musico extends React.Component {
-	render() {
-		const id = this.props.musico._links.self.href.split("/").slice(-1)
 
-		return (
-			<tr>
-				<td>{this.props.musico.nombre}</td>
-				<td>
-					<Link to={"/ver-musico/" + id}>Ver</Link>
-				</td>
-			</tr>
-		)
-	}
+class Producto extends React.Component {
+    render() {
+        const id = this.props.producto._links.self.href.split("/").slice(-1);
+        return (
+            <tr>
+                <td>{this.props.producto.nombre}</td>
+                <td>{this.props.producto.precio}</td>
+                <td>
+                    <Link to={"/ver-producto/" + id}>Ver</Link> |
+                    <Link to={"/editar-producto/" + id}>Editar</Link>
+                </td>
+            </tr>
+        );
+    }
 }
-class Banda extends React.Component {
-	render() {
-		const id = this.props.banda._links.self.href.split("/").slice(-1)
 
-		return (
-			<tr>
-				<td>{this.props.banda.nombre}</td>
-				<td>
-					<Link to={"/ver-banda/" + id}>Ver</Link>
-				</td>
-			</tr>
-		)
-	}
+class Venta extends React.Component {
+    render() {
+        const id = this.props.venta._links.self.href.split("/").slice(-1);
+        return (
+            <tr>
+                <td>{this.props.venta.total}</td>
+                <td>
+                    <Link to={"/ver-venta/" + id}>Ver</Link>
+                </td>
+            </tr>
+        );
+    }
+}
+
+class VentaDetalle extends React.Component {
+    render() {
+        const id = this.props.ventadetalle._links.self.href.split("/").slice(-1);
+        return (
+            <tr>
+                <td>{this.props.ventadetalle.venta.id}</td>
+                <td>{this.props.ventadetalle.producto.nombre}</td>
+                <td>{this.props.ventadetalle.cantidad}</td>
+                <td>
+                    <Link to={"/ver-ventadetalle/" + id}>Ver</Link>
+                </td>
+            </tr>
+        );
+    }
 }
 
 module.exports = HomePage;

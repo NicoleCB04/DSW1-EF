@@ -7,47 +7,44 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-	private final InstrumentoRepository repositoryI;
-	private final MusicoRepository repositoryM;
-	private final BandaRepository repositoryB;
-	private final IntegranteRepository repositoryN;
+	private final VentaRepository repositoryV;
+	private final ProductoRepository repositoryP;
+	private final VentaDetalleRepository repositoryD;
 
 	@Autowired
 	public DatabaseLoader(
-		InstrumentoRepository repositoryI,
-		MusicoRepository repositoryM,
-		BandaRepository repositoryB,
-		IntegranteRepository repositoryN
+		VentaRepository repositoryV,
+		ProductoRepository repositoryP,
+		VentaDetalleRepository repositoryD
 		) {
-		this.repositoryI = repositoryI;
-		this.repositoryM = repositoryM;
-		this.repositoryB = repositoryB;
-		this.repositoryN = repositoryN;
+		this.repositoryV = repositoryV;
+		this.repositoryP = repositoryP;
+		this.repositoryD = repositoryD;
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
 
-		this.repositoryI.save(new Instrumento("Guitarra", "Cuerda", "de madera, con caja de resonancia, 6 cuerdas templadas"));
-		this.repositoryI.save(new Instrumento("Ukelele","Cuerda","de madera, con caja de resonancia pequeña, 4 cuerdas templadas"));
-		this.repositoryI.save(new Instrumento("Melódica","Viento","teclado pequeño de 2 octavas, sonorizado por soplido"));
-		Instrumento iVoz = new Instrumento("Voz","Viento",".");
-		this.repositoryI.save(iVoz);
-		Instrumento iGuitarraElectrica = new Instrumento("Guitarra Electrica","Electrónico", ".");
-		this.repositoryI.save(iGuitarraElectrica);
-		this.repositoryI.save(new Instrumento("Batería","Percusión","."));
+		Producto producto1 = new Producto("Teclado gamer k50", 325);
+        Producto producto2 = new Producto("Audifonos G365", 550);
+		Producto producto3 = new Producto("Mouse LG 25", 125);
+		repositoryP.save(producto1);
+        repositoryP.save(producto2);
+		repositoryP.save(producto3);
 
-		this.repositoryM.save(new Musico("Daniel F"));
-		Musico mFreddy = new Musico("Freddy");
-		this.repositoryM.save(mFreddy);
-		Musico mBrian = new Musico("Brian");
-		this.repositoryM.save(mBrian);
+		Venta venta1 = new Venta(125);
+        Venta venta2 = new Venta(550);
+		Venta venta3 = new Venta(325);
+		repositoryV.save(venta1);
+        repositoryV.save(venta2);
+		repositoryV.save(venta3);
 
-		Banda bQueen = new Banda("Queen");
-		this.repositoryB.save(bQueen);
-
-		this.repositoryN.save(new Integrante(bQueen, mFreddy, iVoz));
-		this.repositoryN.save(new Integrante(bQueen, mBrian, iGuitarraElectrica));
+		VentaDetalle ventaDetalle1 = new VentaDetalle(venta1, producto3, 2);
+		VentaDetalle ventaDetalle2 = new VentaDetalle(venta2, producto2, 1);
+		VentaDetalle ventaDetalle3 = new VentaDetalle(venta3, producto1, 3);
+		repositoryD.save(ventaDetalle1);
+        repositoryD.save(ventaDetalle2);
+        repositoryD.save(ventaDetalle3);
 
 
 	}
