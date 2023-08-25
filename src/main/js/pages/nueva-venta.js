@@ -24,7 +24,7 @@ const NuevaVentaPage = () => {
             <h1>Nueva Venta</h1>
             <form onSubmit={handleSubmit}>
                 <label>Total</label> <br />
-                <input type="number" id="total" name="total" onChange={e => setTotal(e.target.value)} /> <br />
+                <input type="number" id="total" name="total" value={total} onChange={(e) => setTotal(parseFloat(e.target.value))} /> <br />
                 <input type="submit" value="Nueva Venta" />
             </form>
             <Link to="/">Volver</Link>
