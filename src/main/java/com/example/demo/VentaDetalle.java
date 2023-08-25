@@ -50,8 +50,8 @@ public class VentaDetalle {
     public String toString() {
         return "VentaDetalle{" +
                 "id=" + id +
-                ", id_venta=" + id_venta +
-                ", id_producto=" + id_producto +
+                ", venta=" + venta +
+                ", producto=" + producto +
                 ", cantidad=" + cantidad +
                 '}';
     }
@@ -60,20 +60,20 @@ public class VentaDetalle {
         return id;
     }
 
-    public Venta getId_venta() {
-        return id_venta;
+    public Venta getventa() {
+        return venta;
     }
 
-    public void setId_venta(Venta id_venta) {
-        this.id_venta = id_venta;
+    public void setventa(Venta venta) {
+        this.venta = venta;
     }
 
-    public Producto getId_producto() {
-        return id_producto;
+    public Producto getproducto() {
+        return producto;
     }
 
-    public void setId_producto(Producto id_producto) {
-        this.id_producto = id_producto;
+    public void setproducto(Producto producto) {
+        this.producto = producto;
     }
 
     public int getCantidad() {
