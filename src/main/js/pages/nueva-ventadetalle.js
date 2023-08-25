@@ -58,7 +58,7 @@ const NuevoVentaDetallePage = () => {
                     ))}
                 </select> <br />
                 <label>Cantidad</label> <br />
-                <input type="number" id="cantidad" name="cantidad" onChange={e => setCantidad(e.target.value)} /> <br />
+                <input type="text" id="cantidad" name="cantidad" onChange={e => setCantidad(e.target.value)} /> <br />
                 <input type="submit" value="Nuevo Detalle de Venta" />
             </form>
             <Link to="/">Volver</Link>
