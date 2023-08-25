@@ -25,7 +25,7 @@ class HomePage extends React.Component {
     render() {
         return (
             <>
-                <h1>Semana 13 App</h1>
+                <h1>Examen Final</h1>
 
                 <div style={{ "width": "100%", "display": "flex" }}>
                     <div style={{ "width": "calc(100% / 3)" }}>
@@ -89,6 +89,7 @@ class VentaList extends React.Component {
             <table border="1">
                 <tbody>
                     <tr>
+                        <th></th>
                         <th>Total</th>
                         <th>Acciones</th>
                     </tr>
@@ -156,8 +157,8 @@ class VentaDetalle extends React.Component {
         const id = this.props.ventadetalle._links.self.href.split("/").slice(-1);
         return (
             <tr>
-                <td>{this.props.ventadetalle.id_venta}</td>
-                <td>{this.props.ventadetalle.id_producto}</td>
+                <td>{this.props.ventadetalle.venta && this.props.ventadetalle.venta.total}</td>
+                <td>{this.props.ventadetalle.producto && this.props.ventadetalle.producto.nombre}</td>
                 <td>{this.props.ventadetalle.cantidad}</td>
                 <td>
                     <Link to={"/ver-ventadetalle/" + id}>Ver</Link> |

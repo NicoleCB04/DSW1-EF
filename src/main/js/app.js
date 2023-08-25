@@ -8,6 +8,7 @@ const VerVentaPage = require('./pages/ver-venta');
 const NuevaVentaPage = require('./pages/nueva-venta');
 const VerProductoPage = require('./pages/ver-producto');
 const VerVentaDetallePage = require('./pages/ver-ventadetalle');
+const NuevoVentaDetallePage = require('./pages/nueva-ventadetalle');
 const EditarProductoPage = require('./pages/editar-producto');
 const EditarVentaDetallePage = require('./pages/editar-ventadetalle');
 
@@ -21,7 +22,8 @@ const router = createBrowserRouter([
 	{ path: '/nuevo-producto', element: <NuevoProductoPage /> },
 	{ path: '/editar-producto/:id', element: <EditarProductoPage /> },
 	{ path: '/ver-ventadetalle/:id', element: <VerVentaDetallePage /> },
-	{ path: '/editar-ventadetalle/:id', element: <EditarVentaDetallePage/>}
+	{ path: '/editar-ventadetalle/:id', element: <EditarVentaDetallePage/>},
+	{ path: '/nueva-ventadetalle', element: <NuevoVentaDetallePage/>}
 	
 ])
 
