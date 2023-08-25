@@ -44,9 +44,9 @@ public class DatabaseLoader implements CommandLineRunner {
         repositoryV.save(venta2);
 		repositoryV.save(venta3);
 
-		VentaDetalle ventaDetalles1 = new VentaDetalle(venta1, producto3, 2);
-		VentaDetalle ventaDetalles2 = new VentaDetalle(venta2, producto2, 1);
-		VentaDetalle ventaDetalles3 = new VentaDetalle(venta3, producto1, 3);
+		VentaDetalle ventaDetalles1 = new VentaDetalle(producto3, 2);
+		VentaDetalle ventaDetalles2 = new VentaDetalle(producto2, 1);
+		VentaDetalle ventaDetalles3 = new VentaDetalle(producto1, 3);
 		repositoryD.save(ventaDetalles1);
         repositoryD.save(ventaDetalles2);
         repositoryD.save(ventaDetalles3);

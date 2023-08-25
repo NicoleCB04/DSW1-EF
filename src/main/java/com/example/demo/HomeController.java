@@ -19,8 +19,7 @@ public class HomeController {
 
     @GetMapping(path = "/api/ventadetalles/{id}/detalles")
     public @ResponseBody List<Map<String, Object>> obtenerDetallesVenta(@PathVariable Integer id) {
-        String sql = "SELECT producto.id as PRODUCTO_ID, producto.nombre as PRODUCTO_NOMBRE, ventadetalle.cantidad as CANTIDAD FROM ventadetalle "
-                + "JOIN producto ON ventadetalle.id_producto = producto.id WHERE ventadetalle.id_venta = ?";
+        String sql = "SELECT ventas.id as ID, ventas.total as TOTAL, ventas.fecha as FECHA FROM ventas WHERE ventas.id_usuario = ?";
         List<Map<String, Object>> queryResult = jdbcTemplate.queryForList(sql, id);
         return queryResult;
     }

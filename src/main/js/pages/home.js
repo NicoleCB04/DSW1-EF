@@ -155,7 +155,7 @@ class VentaDetalle extends React.Component {
         const id = this.props.ventadetalle._links.self.href.split("/").slice(-1);
         return (
             <tr>
-                <td>{this.props.ventadetalle.id_producto}</td>
+                <td>{this.props.ventadetalle.producto.nombre}</td>
                 <td>{this.props.ventadetalle.cantidad}</td>
                 <td>
                     <Link to={"/ver-ventadetalle/" + id}>Ver</Link> |

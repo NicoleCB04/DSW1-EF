@@ -20,16 +20,15 @@ public class VentaDetalle {
     private Venta venta;
 
     @ManyToOne
-    @JoinColumn(name = "id_producto")
-    private Producto producto;
+    @JoinColumn(name = "nombre")
+    private Producto nombre;
 
     private int cantidad;
 
     private VentaDetalle() {}
 
-    public VentaDetalle(Venta venta, Producto producto, int cantidad) {
-        this.venta = venta;
-        this.producto = producto;
+    public VentaDetalle(Producto nombre, int cantidad) {
+        this.nombre = nombre;
         this.cantidad = cantidad;
     }
 
@@ -50,8 +49,7 @@ public class VentaDetalle {
     public String toString() {
         return "VentaDetalle{" +
                 "id=" + id +
-                ", venta=" + venta +
-                ", producto=" + producto +
+                ", producto=" + nombre +
                 ", cantidad=" + cantidad +
                 '}';
     }
@@ -69,11 +67,11 @@ public class VentaDetalle {
     }
 
     public Producto getProducto() {
-        return producto;
+        return nombre;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setProducto(Producto nombre) {
+        this.nombre = nombre;
     }
 
     public int getCantidad() {
